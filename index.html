@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cruzadinha de Arquitetura Computacional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="titulo-area">
+        <span class="badge-sistema">SYS // ARQ-COMP v2.0</span>
+        <h1>Cruzadinha de Arquitetura Computacional</h1>
+        <p class="intro">Decifre os componentes internos do processador e da hierarquia de memória. Sem acentos ou espaços.</p>
+      </div>
+
+      <div class="hud-painel">
+        <div class="hud-card">
+          <span class="hud-label">PROGRESSO</span>
+          <span id="resultado" class="hud-valor destaque-cyan">0 de 16 palavras</span>
+          <div class="barra-progresso">
+            <div id="barra-fill" class="barra-fill"></div>
+          </div>
+        </div>
+
+        <div class="hud-card">
+          <span class="hud-label">CLOCK / TEMPO</span>
+          <span id="timer" class="hud-valor mono">00:00</span>
+          <span id="tentativas" class="hud-sub">Verificações: 0</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="controles-bar" aria-label="Controles do jogo">
+      <div class="acoes-principais">
+        <button id="btn-conferir" class="btn btn-primary" onclick="conferir()">
+          <span class="btn-icon">✓</span> Conferir
+        </button>
+        <button id="btn-reiniciar" class="btn btn-secondary" onclick="iniciar()">
+          <span class="btn-icon">↺</span> Reiniciar
+        </button>
+      </div>
+
+      <div class="status-direcao">
+        <span class="direcao-pill" id="indicador-direcao" onclick="alternarDirecao()" title="Clique ou pressione Espaço para alternar">
+          Direção: <strong id="texto-direcao">HORIZONTAL →</strong>
+        </span>
+
+        <label class="desafio-toggle" title="Ativa limite de 5 minutos e penalidade de -15s por erro ao conferir">
+          <input type="checkbox" id="modo-desafio" onchange="alternarModoDesafio()">
+          <span class="toggle-slider"></span>
+          <span class="toggle-texto">Modo Desafio (05:00 | -15s/erro)</span>
+        </label>
+      </div>
+    </section>
+
+    <div id="banner-status" class="banner-status oculto" role="status"></div>
+
+    <main class="jogo">
+      <section class="tabuleiro-wrapper" aria-label="Tabuleiro da cruzadinha">
+        <div class="tabuleiro-header">
+          <span>MATRIZ DE SILÍCIO (16 PALAVRAS)</span>
+          <span class="dica-teclado">Setas: mover • Espaço: girar • Backspace: voltar</span>
+        </div>
+        <div class="rolagem">
+          <div id="tabuleiro"></div>
+        </div>
+      </section>
+
+      <aside class="pistas" aria-label="Pistas numeradas">
+        <div class="pistas-bloco">
+          <div class="pistas-titulo">
+            <h2>Horizontais</h2>
+            <span class="tag-dir">→</span>
+          </div>
+          <ul id="horizontais"></ul>
+        </div>
+
+        <div class="pistas-bloco">
+          <div class="pistas-titulo">
+            <h2>Verticais</h2>
+            <span class="tag-dir">↓</span>
+          </div>
+          <ul id="verticais"></ul>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
