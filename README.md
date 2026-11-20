@@ -1,35 +1,35 @@
 # Cruzadinha de Arquitetura Computacional
 
-Jogo de cruzadinha que roda no navegador para treinar os termos da aula de Tópicos de Arquitetura Computacional.
+Jogo de cruzadinha interativo desenvolvido em HTML, CSS e JavaScript puros para fixação dos conceitos de Tópicos de Arquitetura Computacional.
 
 ## Como jogar
 
-1. Leia as pistas das listas **Horizontais** e **Verticais**.
-2. Clique em uma casa numerada e digite as letras direto no tabuleiro (sem acento e sem espaço).
-3. Clique em **Conferir** para ver quais palavras estão certas (verde) e quais estão erradas (vermelho).
-4. O contador mostra quantas palavras você acertou.
-5. Clique em **Reiniciar** para limpar o tabuleiro.
+1. Leia as pistas numeradas de **1 a 16** nas listas **Horizontais** e **Verticais** (ou clique em qualquer pergunta para destacá-la no tabuleiro).
+2. Digite as letras diretamente nas casas (sem acento e sem espaço). Use `Tab` para saltar entre perguntas pendentes, as setas para navegar e `Espaço` para alternar a direção.
+3. Pressione `Enter` ou clique em **Validar esta palavra** (ou no ícone `✓` ao lado da pista) para verificar uma pergunta por vez, ou clique em **Conferir Tudo** para validar o tabuleiro inteiro.
+4. Use o botão **Dica** para revelar uma letra da palavra selecionada.
+5. Clique em **Reiniciar** para limpar o tabuleiro e iniciar uma nova partida.
 
 ## Palavras e pistas
 
 | Nº | Direção | Pista | Resposta |
 |----|---------|-------|----------|
-| 1 | Vertical | Memória não volátil do microcontrolador, regravável byte a byte, boa para guardar configurações. | EEPROM |
-| 2 | Horizontal | Memória temporária e volátil onde ficam programas e dados em uso; apaga sem energia. | RAM |
-| 2 | Vertical | Memórias minúsculas e velocíssimas dentro do processador, guardam o valor em uso agora. | REGISTRADORES |
-| 3 | Vertical | Parte da CPU que dirige a execução, dizendo a cada componente o que fazer. | UC |
-| 4 | Vertical | Processador com quatro núcleos de execução independentes. | QUADCORE |
-| 5 | Horizontal | Cérebro do computador: busca, decodifica e executa as instruções dos programas. | CPU |
-| 6 | Vertical | Via de mão única pela qual a CPU indica onde quer ler ou gravar. | ADDRESSBUS |
-| 7 | Vertical | Onde arquivos e programas ficam guardados por longo prazo, como HD ou SSD. | MEMORIADEMASSA |
-| 8 | Vertical | Memória não volátil cujo conteúdo vem gravado de fábrica e normalmente não muda. | ROM |
-| 9 | Vertical | Memória pequena e muito rápida junto da CPU que guarda cópias do mais usado. | CACHE |
-| 10 | Vertical | Permite que um dispositivo copie informações para a RAM sem passar pela CPU. | DMA |
-| 11 | Horizontal | Chip que reúne processador, memória e portas de entrada e saída, como no Arduino. | MICROCONTROLADOR |
-| 12 | Horizontal | Memória não volátil regravável em blocos, usada em pen drives e para guardar o programa. | FLASH |
-| 13 | Vertical | Via de mão dupla que leva os valores lidos ou gravados entre CPU e memória. | DATABUS |
-| 14 | Horizontal | Circuito do processador que faz as contas e compara valores. | ULA |
-| 15 | Horizontal | Processador com dois núcleos de execução, capaz de rodar duas tarefas ao mesmo tempo. | DUALCORE |
+| 1 | Vertical | Memória persistente regravável byte a byte via pulsos elétricos sem remoção do circuito. | EEPROM |
+| 2 | Horizontal | Armazenamento principal volátil de leitura e escrita que perde dados ao desligar. | RAM |
+| 3 | Vertical | Células internas ao núcleo com latência de um ciclo para operandos imediatos. | REGISTRADORES |
+| 4 | Vertical | Decodifica instruções binárias e dispara sinais elétricos que coordenam todo o datapath. | UC |
+| 5 | Vertical | Pastilha monolítica que integra quatro motores independentes de execução paralela em hardware. | QUADCORE |
+| 6 | Horizontal | Orquestra o ciclo contínuo de busca, decodificação e execução das instruções de máquina. | CPU |
+| 7 | Vertical | Trilhas unidirecionais cuja largura em bits limita o total de locais acessíveis. | ADDRESSBUS |
+| 8 | Vertical | Armazenamento secundário não volátil de alta capacidade e latência elevada, como SSD. | MEMORIADEMASSA |
+| 9 | Vertical | Transfere blocos entre periféricos e memória principal sem intervenção contínua do processador. | DMA |
+| 10 | Horizontal | Chip embarcado completo que integra núcleo, memórias internas e pinos periféricos programáveis. | MICROCONTROLADOR |
+| 11 | Vertical | Hierarquia SRAM ultrarrápida em níveis que explora localidade temporal e espacial. | CACHE |
+| 12 | Vertical | Via bidirecional paralela que transporta palavras binárias lidas ou escritas entre componentes. | DATABUS |
+| 13 | Horizontal | Tecnologia persistente apagada por blocos inteiros, base de pendrives e firmwares modernos. | FLASH |
+| 14 | Horizontal | Bloco combinacional que executa operações matemáticas, deslocamentos binários e atualiza flags de estado. | ULA |
+| 15 | Horizontal | Arquitetura com dois motores físicos independentes capazes de processar duas threads simultaneamente. | DUALCORE |
+| 16 | Vertical | Conteúdo gravado por máscara na fabricação, imutável em operação normal para boot. | ROM |
 
 ## Site publicado
 

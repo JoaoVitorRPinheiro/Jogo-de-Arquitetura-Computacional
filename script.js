@@ -1,50 +1,158 @@
+/* Cada pergunta possui numeração única de 1 a 16 (sem repetição entre Horizontal e Vertical) */
 const palavras = [
-  { numero: 1, direcao: "V", resposta: "EEPROM", linha: 1, coluna: 0, pista: "Armazenamento não volátil interno ao chip, apagável e regravável eletricamente byte a byte." },
-  { numero: 2, direcao: "H", resposta: "RAM", linha: 1, coluna: 8, pista: "Memória principal volátil de leitura e escrita que perde todo conteúdo sem energia." },
-  { numero: 2, direcao: "V", resposta: "REGISTRADORES", linha: 1, coluna: 8, pista: "Células ultrarrápidas no topo da hierarquia, internas ao processador, para operandos imediatos." },
-  { numero: 3, direcao: "V", resposta: "UC", linha: 1, coluna: 12, pista: "Subsistema do processador que busca, decodifica instruções e gera sinais de coordenação." },
-  { numero: 4, direcao: "V", resposta: "QUADCORE", linha: 1, coluna: 14, pista: "Arquitetura paralela com quatro unidades independentes de processamento no mesmo pastilhamento." },
-  { numero: 5, direcao: "H", resposta: "CPU", linha: 2, coluna: 12, pista: "Componente central que interpreta instruções de máquina e coordena todo o sistema." },
-  { numero: 6, direcao: "V", resposta: "ADDRESSBUS", linha: 3, coluna: 3, pista: "Conjunto unidirecional de linhas elétricas que transporta posições físicas da memória principal." },
-  { numero: 7, direcao: "V", resposta: "MEMORIADEMASSA", linha: 3, coluna: 10, pista: "Armazenamento secundário persistente de alta capacidade e maior latência, como SSD ou HD." },
-  { numero: 8, direcao: "V", resposta: "DMA", linha: 4, coluna: 12, pista: "Controlador que transfere blocos entre periféricos e RAM liberando o processador principal." },
-  { numero: 9, direcao: "H", resposta: "MICROCONTROLADOR", linha: 6, coluna: 0, pista: "Circuito integrado embarcado que reúne núcleo, memórias e periféricos de I/O num único chip." },
-  { numero: 10, direcao: "V", resposta: "CACHE", linha: 6, coluna: 5, pista: "Memória SRAM intermediária de baixíssima latência que reduz gargalos entre processador e RAM." },
-  { numero: 11, direcao: "V", resposta: "DATABUS", linha: 6, coluna: 13, pista: "Trilha bidirecional cuja largura em bits define quantos bytes trafegam por ciclo." },
-  { numero: 12, direcao: "H", resposta: "FLASH", linha: 8, coluna: 0, pista: "Tecnologia não volátil apagada em blocos inteiros, usada em SSDs e firmware embarcado." },
-  { numero: 13, direcao: "H", resposta: "ULA", linha: 11, coluna: 13, pista: "Bloco combinacional do processador responsável por somas, deslocamentos binários e comparações booleanas." },
-  { numero: 14, direcao: "H", resposta: "DUALCORE", linha: 16, coluna: 8, pista: "Chip com dois núcleos físicos capazes de executar duas threads simultaneamente em hardware." },
-  { numero: 15, direcao: "V", resposta: "ROM", linha: 16, coluna: 14, pista: "Memória não volátil gravada na fabricação, ideal para armazenar firmware e rotinas de boot." }
+  { numero: 1, direcao: "V", resposta: "EEPROM", linha: 1, coluna: 0, pista: "Memória persistente regravável byte a byte via pulsos elétricos sem remoção do circuito." },
+  { numero: 2, direcao: "H", resposta: "RAM", linha: 1, coluna: 8, pista: "Armazenamento principal volátil de leitura e escrita que perde dados ao desligar." },
+  { numero: 3, direcao: "V", resposta: "REGISTRADORES", linha: 1, coluna: 8, pista: "Células internas ao núcleo com latência de um ciclo para operandos imediatos." },
+  { numero: 4, direcao: "V", resposta: "UC", linha: 1, coluna: 12, pista: "Decodifica instruções binárias e dispara sinais elétricos que coordenam todo o datapath." },
+  { numero: 5, direcao: "V", resposta: "QUADCORE", linha: 1, coluna: 14, pista: "Pastilha monolítica que integra quatro motores independentes de execução paralela em hardware." },
+  { numero: 6, direcao: "H", resposta: "CPU", linha: 2, coluna: 12, pista: "Orquestra o ciclo contínuo de busca, decodificação e execução das instruções de máquina." },
+  { numero: 7, direcao: "V", resposta: "ADDRESSBUS", linha: 3, coluna: 3, pista: "Trilhas unidirecionais cuja largura em bits limita o total de locais acessíveis." },
+  { numero: 8, direcao: "V", resposta: "MEMORIADEMASSA", linha: 3, coluna: 10, pista: "Armazenamento secundário não volátil de alta capacidade e latência elevada, como SSD." },
+  { numero: 9, direcao: "V", resposta: "DMA", linha: 4, coluna: 12, pista: "Transfere blocos entre periféricos e memória principal sem intervenção contínua do processador." },
+  { numero: 10, direcao: "H", resposta: "MICROCONTROLADOR", linha: 6, coluna: 0, pista: "Chip embarcado completo que integra núcleo, memórias internas e pinos periféricos programáveis." },
+  { numero: 11, direcao: "V", resposta: "CACHE", linha: 6, coluna: 5, pista: "Hierarquia SRAM ultrarrápida em níveis que explora localidade temporal e espacial." },
+  { numero: 12, direcao: "V", resposta: "DATABUS", linha: 6, coluna: 13, pista: "Via bidirecional paralela que transporta palavras binárias lidas ou escritas entre componentes." },
+  { numero: 13, direcao: "H", resposta: "FLASH", linha: 8, coluna: 0, pista: "Tecnologia persistente apagada por blocos inteiros, base de pendrives e firmwares modernos." },
+  { numero: 14, direcao: "H", resposta: "ULA", linha: 11, coluna: 13, pista: "Bloco combinacional que executa operações matemáticas, deslocamentos binários e atualiza flags de estado." },
+  { numero: 15, direcao: "H", resposta: "DUALCORE", linha: 16, coluna: 8, pista: "Arquitetura com dois motores físicos independentes capazes de processar duas threads simultaneamente." },
+  { numero: 16, direcao: "V", resposta: "ROM", linha: 16, coluna: 14, pista: "Conteúdo gravado por máscara na fabricação, imutável em operação normal para boot." }
 ];
 
 const totalLinhas = 19;
 const totalColunas = 16;
-const TEMPO_DESAFIO_INICIAL = 300; // 5 minutos em segundos
 
+const CONFIG_MODOS = {
+  treino: { nome: "MODO TREINO", tempo: 0, regressivo: false, penalidadeGeral: 0, penalidadeUnica: 0, dicasMax: 3, mostrarTamanho: true },
+  dificil: { nome: "MODO DIFÍCIL", tempo: 240, regressivo: true, penalidadeGeral: 20, penalidadeUnica: 8, dicasMax: 3, mostrarTamanho: false },
+  extremo: { nome: "MODO EXTREMO", tempo: 150, regressivo: true, penalidadeGeral: 30, penalidadeUnica: 12, dicasMax: 0, mostrarTamanho: false }
+};
+
+let modoAtual = "dificil";
+let filtroAtual = "todas";
 let direcaoAtual = "H";
 let celulaFocada = null;
-let segundos = 0;
+let palavraSelecionada = null;
+let palavrasValidadas = new Set();
+let segundos = 240;
+let segundosDecorridos = 0;
 let intervaloTimer = null;
-let modoDesafio = false;
 let jogoEncerrado = false;
 let qtdVerificacoes = 0;
+let dicasRestantes = 3;
+let dicasUsadas = 0;
+let somAtivo = true;
+let audioCtx = null;
+
+/* Sintetizador de Áudio Puro (Web Audio API) */
+function tocarSom(tipo) {
+  if (!somAtivo) return;
+  try {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === "suspended") audioCtx.resume();
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    const agora = audioCtx.currentTime;
+    if (tipo === "tecla") {
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(540, agora);
+      osc.frequency.exponentialRampToValueAtTime(240, agora + 0.04);
+      gain.gain.setValueAtTime(0.05, agora);
+      gain.gain.exponentialRampToValueAtTime(0.001, agora + 0.04);
+      osc.start(agora);
+      osc.stop(agora + 0.045);
+    } else if (tipo === "acerto") {
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(587.33, agora);
+      osc.frequency.exponentialRampToValueAtTime(880, agora + 0.14);
+      gain.gain.setValueAtTime(0.08, agora);
+      gain.gain.exponentialRampToValueAtTime(0.001, agora + 0.16);
+      osc.start(agora);
+      osc.stop(agora + 0.17);
+    } else if (tipo === "dica") {
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(480, agora);
+      osc.frequency.exponentialRampToValueAtTime(920, agora + 0.16);
+      gain.gain.setValueAtTime(0.08, agora);
+      gain.gain.exponentialRampToValueAtTime(0.001, agora + 0.18);
+      osc.start(agora);
+      osc.stop(agora + 0.19);
+    } else if (tipo === "erro") {
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(175, agora);
+      osc.frequency.linearRampToValueAtTime(110, agora + 0.22);
+      gain.gain.setValueAtTime(0.07, agora);
+      gain.gain.exponentialRampToValueAtTime(0.001, agora + 0.23);
+      osc.start(agora);
+      osc.stop(agora + 0.24);
+    } else if (tipo === "vitoria") {
+      [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type = "triangle";
+        o.frequency.setValueAtTime(freq, agora + idx * 0.08);
+        g.gain.setValueAtTime(0.08, agora + idx * 0.08);
+        g.gain.exponentialRampToValueAtTime(0.001, agora + idx * 0.08 + 0.34);
+        o.connect(g);
+        g.connect(audioCtx.destination);
+        o.start(agora + idx * 0.08);
+        o.stop(agora + idx * 0.08 + 0.35);
+      });
+    }
+  } catch (e) {
+    // Ignora bloqueios de áudio automático
+  }
+}
+
+function alternarSom() {
+  somAtivo = !somAtivo;
+  document.getElementById("btn-som").textContent = somAtivo ? "🔊" : "🔇";
+}
+
+function mudarDificuldade(novoModo) {
+  modoAtual = novoModo;
+  document.querySelectorAll(".diff-btn").forEach(btn => {
+    btn.classList.toggle("ativo", btn.dataset.modo === novoModo);
+  });
+  document.getElementById("badge-modo").textContent = CONFIG_MODOS[novoModo].nome;
+  iniciar();
+}
 
 function iniciar() {
+  const cfg = CONFIG_MODOS[modoAtual];
   jogoEncerrado = false;
   qtdVerificacoes = 0;
+  dicasRestantes = cfg.dicasMax;
+  dicasUsadas = 0;
+  segundosDecorridos = 0;
   celulaFocada = null;
+  palavraSelecionada = null;
+  palavrasValidadas = new Set();
   direcaoAtual = "H";
+
+  document.getElementById("modal-fim").classList.add("oculto");
+  atualizarBotaoDica();
   atualizarIndicadorDirecao();
+  atualizarRecordeHUD();
   ocultarBanner();
 
-  const mapa = Array.from({ length: totalLinhas }, () => Array(totalColunas).fill(""));
+  document.getElementById("visor-tag").textContent = "PERGUNTA NÃO SELECIONADA";
+  document.getElementById("visor-slots").textContent = "";
+  document.getElementById("visor-texto").textContent = "Clique em uma casa do tabuleiro ou selecione uma pergunta ao lado para começar.";
+  document.getElementById("btn-validar-atual").disabled = true;
 
+  const contagemCelula = Array.from({ length: totalLinhas }, () => Array(totalColunas).fill(0));
   for (let p = 0; p < palavras.length; p++) {
     const { linha, coluna, direcao, resposta } = palavras[p];
     for (let i = 0; i < resposta.length; i++) {
       const l = direcao === "H" ? linha : linha + i;
       const c = direcao === "H" ? coluna + i : coluna;
-      mapa[l][c] = "x";
+      contagemCelula[l][c]++;
     }
   }
 
@@ -52,14 +160,15 @@ function iniciar() {
   for (let l = 0; l < totalLinhas; l++) {
     html += "<div class='linha'>";
     for (let c = 0; c < totalColunas; c++) {
-      if (mapa[l][c] === "") {
+      if (contagemCelula[l][c] === 0) {
         html += "<div class='vazia'></div>";
       } else {
-        const palavraInicio = palavras.find(item => item.linha === l && item.coluna === c);
-        const numero = palavraInicio ? palavraInicio.numero : "";
-        html += `<div class='celula'>`;
-        if (numero !== "") {
-          html += `<span class='numero'>${numero}</span>`;
+        const inicios = palavras.filter(item => item.linha === l && item.coluna === c);
+        const numeroBadge = inicios.map(item => item.numero).join("·");
+        const classeCruzamento = contagemCelula[l][c] > 1 ? " cruzamento" : "";
+        html += `<div class='celula${classeCruzamento}'>`;
+        if (numeroBadge !== "") {
+          html += `<span class='numero'>${numeroBadge}</span>`;
         }
         html += `<input class='casa' type='text' maxlength='1' autocomplete='off' spellcheck='false' id='c${l}_${c}' aria-label='Linha ${l + 1}, Coluna ${c + 1}'>`;
         html += `</div>`;
@@ -68,16 +177,21 @@ function iniciar() {
     html += "</div>";
   }
 
-  const tabuleiroEl = document.getElementById("tabuleiro");
-  tabuleiroEl.innerHTML = html;
+  document.getElementById("tabuleiro").innerHTML = html;
 
   let listaH = "";
   let listaV = "";
   for (let p = 0; p < palavras.length; p++) {
     const item = palavras[p];
-    const li = `<li id='p${item.numero}${item.direcao}' onclick="selecionarPista(${p})">
-      <b>${item.numero}.</b> ${item.pista}
-      <span class='qtd-letras'>(${item.resposta.length})</span>
+    const tagTamanho = cfg.mostrarTamanho ? `<span class='qtd-letras'>(${item.resposta.length})</span>` : "";
+    const li = `<li id='p${item.numero}'
+      onclick="selecionarPista(${p})"
+      onmouseenter="previsualizarPalavra(${p}, true)"
+      onmouseleave="previsualizarPalavra(${p}, false)">
+      <div class='pista-conteudo'>
+        <b>${item.numero}.</b> ${item.pista}${tagTamanho}
+      </div>
+      <button type='button' class='btn-check-item' title='Validar apenas a pergunta ${item.numero}' onclick="event.stopPropagation(); conferirPalavraPorIndice(${p})">✓</button>
     </li>`;
     if (item.direcao === "H") {
       listaH += li;
@@ -89,9 +203,10 @@ function iniciar() {
   document.getElementById("horizontais").innerHTML = listaH;
   document.getElementById("verticais").innerHTML = listaV;
 
+  aplicarFiltroPistas();
   configurarEventosCelulas();
-  atualizarPlacar(0);
-  document.getElementById("tentativas").textContent = "Verificações: 0";
+  atualizarPlacar();
+  document.getElementById("tentativas").textContent = "Checagens: 0";
   reiniciarTimer();
 }
 
@@ -116,29 +231,46 @@ function configurarEventosCelulas() {
     });
 
     casa.addEventListener("input", () => {
-      if (jogoEncerrado) {
-        casa.value = "";
-        return;
-      }
+      if (jogoEncerrado || casa.readOnly) return;
       const limpo = casa.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z]/g, "").toUpperCase();
       casa.value = limpo.slice(-1);
-      casa.classList.remove("certa", "errada");
+      casa.classList.remove("errada", "dica-revelada");
 
       if (casa.value !== "") {
-        moverCursor(l, c, 1);
+        tocarSom("tecla");
+        avancarParaProximaEditavel(l, c);
       }
     });
 
     casa.addEventListener("keydown", e => {
+      if (jogoEncerrado) return;
+
+      if (casa.readOnly && /^[a-zA-Z]$/.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        e.preventDefault();
+        const proxima = encontrarProximaCasaEditavel(l, c);
+        if (proxima) {
+          proxima.value = e.key.toUpperCase();
+          proxima.classList.remove("errada");
+          tocarSom("tecla");
+          const [nl, nc] = extrairCoordenadas(proxima.id);
+          proxima.focus();
+          avancarParaProximaEditavel(nl, nc);
+        }
+        return;
+      }
+
       if (e.key === " ") {
         e.preventDefault();
         alternarDirecao();
+      } else if (e.key === "Tab") {
+        e.preventDefault();
+        navegarPalavra(e.shiftKey ? -1 : 1);
       } else if (e.key === "Backspace") {
-        if (casa.value === "") {
+        if (casa.readOnly || casa.value === "") {
           e.preventDefault();
-          moverCursor(l, c, -1, true);
+          recuarEApagarEditavel(l, c);
         } else {
-          casa.classList.remove("certa", "errada");
+          casa.classList.remove("errada");
         }
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
@@ -162,7 +294,7 @@ function configurarEventosCelulas() {
         focarSeExistir(l - 1, c);
       } else if (e.key === "Enter") {
         e.preventDefault();
-        conferir();
+        conferirPalavraAtual();
       }
     });
   });
@@ -213,6 +345,7 @@ function destacarPalavraAtiva(l, c) {
   if (opcoes.length === 0) return;
 
   const ativa = opcoes.find(p => p.direcao === direcaoAtual) || opcoes[0];
+  palavraSelecionada = ativa;
   direcaoAtual = ativa.direcao;
   atualizarIndicadorDirecao();
 
@@ -223,10 +356,45 @@ function destacarPalavraAtiva(l, c) {
     if (input) input.classList.add("palavra-ativa");
   }
 
-  const pistaEl = document.getElementById(`p${ativa.numero}${ativa.direcao}`);
+  const dirExtenso = ativa.direcao === "H" ? "HORIZONTAL" : "VERTICAL";
+  document.getElementById("visor-tag").textContent = `PERGUNTA ${ativa.numero} • ${dirExtenso}`;
+  document.getElementById("visor-texto").textContent = ativa.pista;
+
+  const cfg = CONFIG_MODOS[modoAtual];
+  document.getElementById("visor-slots").textContent = cfg.mostrarTamanho
+    ? `${ativa.resposta.length} LETRAS`
+    : "TAMANHO OCULTO";
+
+  const btnValidar = document.getElementById("btn-validar-atual");
+  btnValidar.disabled = palavrasValidadas.has(ativa.numero) || jogoEncerrado;
+
+  const pistaEl = document.getElementById(`p${ativa.numero}`);
   if (pistaEl) {
     pistaEl.classList.add("pista-ativa");
     pistaEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
+function navegarPalavra(delta) {
+  let idxAtual = palavraSelecionada ? palavras.indexOf(palavraSelecionada) : -1;
+  for (let i = 0; i < palavras.length; i++) {
+    idxAtual = (idxAtual + delta + palavras.length) % palavras.length;
+    const candidata = palavras[idxAtual];
+    if (!palavrasValidadas.has(candidata.numero)) {
+      selecionarPista(idxAtual);
+      return;
+    }
+  }
+  selecionarPista((idxAtual + delta + palavras.length) % palavras.length);
+}
+
+function previsualizarPalavra(indicePalavra, ativar) {
+  const p = palavras[indicePalavra];
+  for (let i = 0; i < p.resposta.length; i++) {
+    const l = p.direcao === "H" ? p.linha : p.linha + i;
+    const c = p.direcao === "H" ? p.coluna + i : p.coluna;
+    const casa = document.getElementById(`c${l}_${c}`);
+    if (casa) casa.classList.toggle("preview-hover", ativar);
   }
 }
 
@@ -234,22 +402,52 @@ function selecionarPista(indicePalavra) {
   const p = palavras[indicePalavra];
   direcaoAtual = p.direcao;
   atualizarIndicadorDirecao();
-  const primeiraCasa = document.getElementById(`c${p.linha}_${p.coluna}`);
-  if (primeiraCasa) {
-    primeiraCasa.focus();
+
+  let casaAlvo = document.getElementById(`c${p.linha}_${p.coluna}`);
+  for (let i = 0; i < p.resposta.length; i++) {
+    const l = p.direcao === "H" ? p.linha : p.linha + i;
+    const c = p.direcao === "H" ? p.coluna + i : p.coluna;
+    const candidata = document.getElementById(`c${l}_${c}`);
+    if (candidata && !candidata.readOnly && candidata.value === "") {
+      casaAlvo = candidata;
+      break;
+    }
   }
+  if (casaAlvo) casaAlvo.focus();
 }
 
-function moverCursor(l, c, passo, apagarAnterior = false) {
-  const proxL = direcaoAtual === "V" ? l + passo : l;
-  const proxC = direcaoAtual === "H" ? c + passo : c;
-  const destino = document.getElementById(`c${proxL}_${proxC}`);
-  if (destino) {
-    if (apagarAnterior) {
+function encontrarProximaCasaEditavel(l, c) {
+  let passo = 1;
+  while (passo < totalColunas + totalLinhas) {
+    const proxL = direcaoAtual === "V" ? l + passo : l;
+    const proxC = direcaoAtual === "H" ? c + passo : c;
+    const destino = document.getElementById(`c${proxL}_${proxC}`);
+    if (!destino) return null;
+    if (!destino.readOnly) return destino;
+    passo++;
+  }
+  return null;
+}
+
+function avancarParaProximaEditavel(l, c) {
+  const destino = encontrarProximaCasaEditavel(l, c);
+  if (destino) destino.focus();
+}
+
+function recuarEApagarEditavel(l, c) {
+  let passo = 1;
+  while (passo < totalColunas + totalLinhas) {
+    const antL = direcaoAtual === "V" ? l - passo : l;
+    const antC = direcaoAtual === "H" ? c - passo : c;
+    const destino = document.getElementById(`c${antL}_${antC}`);
+    if (!destino) return;
+    if (!destino.readOnly) {
       destino.value = "";
-      destino.classList.remove("certa", "errada");
+      destino.classList.remove("errada");
+      destino.focus();
+      return;
     }
-    destino.focus();
+    passo++;
   }
 }
 
@@ -258,13 +456,164 @@ function focarSeExistir(l, c) {
   if (alvo) alvo.focus();
 }
 
+/* Filtro de Pistas */
+function filtrarPistas(tipo) {
+  filtroAtual = tipo;
+  document.querySelectorAll(".filtro-btn").forEach(btn => {
+    btn.classList.toggle("ativo", btn.dataset.filtro === tipo);
+  });
+  aplicarFiltroPistas();
+}
+
+function aplicarFiltroPistas() {
+  document.querySelectorAll(".pistas li").forEach(li => {
+    const esconder = filtroAtual === "pendentes" && li.classList.contains("certa");
+    li.classList.toggle("oculta-filtro", esconder);
+  });
+}
+
+/* Sistema de Dicas */
+function usarDica() {
+  if (jogoEncerrado || dicasRestantes <= 0) return;
+
+  if (!palavraSelecionada) {
+    exibirBanner("Selecione uma pergunta no tabuleiro ou na lista antes de pedir dica.", "alerta");
+    return;
+  }
+
+  const candidatas = [];
+  for (let i = 0; i < palavraSelecionada.resposta.length; i++) {
+    const l = palavraSelecionada.direcao === "H" ? palavraSelecionada.linha : palavraSelecionada.linha + i;
+    const c = palavraSelecionada.direcao === "H" ? palavraSelecionada.coluna + i : palavraSelecionada.coluna;
+    const casa = document.getElementById(`c${l}_${c}`);
+    if (casa && !casa.readOnly && casa.value.toUpperCase() !== palavraSelecionada.resposta[i]) {
+      candidatas.push({ casa, letra: palavraSelecionada.resposta[i] });
+    }
+  }
+
+  if (candidatas.length === 0) {
+    exibirBanner("Todas as letras desta pergunta já estão corretas! Clique em Validar esta palavra.", "sucesso");
+    return;
+  }
+
+  const sorteada = candidatas[Math.floor(Math.random() * candidatas.length)];
+  sorteada.casa.value = sorteada.letra;
+  sorteada.casa.readOnly = true;
+  sorteada.casa.classList.remove("errada");
+  sorteada.casa.classList.add("dica-revelada");
+  sorteada.casa.focus();
+
+  dicasRestantes--;
+  dicasUsadas++;
+  atualizarBotaoDica();
+  tocarSom("dica");
+
+  const cfg = CONFIG_MODOS[modoAtual];
+  if (cfg.regressivo) {
+    segundos = Math.max(0, segundos - 15);
+    atualizarDisplayTimer();
+    exibirBanner(`Dica na pergunta ${palavraSelecionada.numero}: letra "${sorteada.letra}" revelada (-15s).`, "alerta");
+    if (segundos === 0) encerrarPorTempo();
+  } else {
+    exibirBanner(`Dica na pergunta ${palavraSelecionada.numero}: letra "${sorteada.letra}" revelada.`, "alerta");
+  }
+}
+
+function atualizarBotaoDica() {
+  const btn = document.getElementById("btn-dica");
+  document.getElementById("dicas-restantes").textContent = dicasRestantes;
+  btn.disabled = dicasRestantes <= 0;
+}
+
+/* Verificação Individual de Uma Pergunta */
+function conferirPalavraAtual() {
+  if (!palavraSelecionada) return;
+  const idx = palavras.indexOf(palavraSelecionada);
+  if (idx !== -1) conferirPalavraPorIndice(idx);
+}
+
+function conferirPalavraPorIndice(indicePalavra) {
+  if (jogoEncerrado) return;
+
+  const item = palavras[indicePalavra];
+  if (palavrasValidadas.has(item.numero)) {
+    exibirBanner(`A pergunta ${item.numero} já foi validada anteriormente.`, "sucesso");
+    return;
+  }
+
+  qtdVerificacoes++;
+  document.getElementById("tentativas").textContent = `Checagens: ${qtdVerificacoes}`;
+
+  let digitado = "";
+  const casasPalavra = [];
+  for (let i = 0; i < item.resposta.length; i++) {
+    const l = item.direcao === "H" ? item.linha : item.linha + i;
+    const c = item.direcao === "H" ? item.coluna + i : item.coluna;
+    const casa = document.getElementById(`c${l}_${c}`);
+    digitado += casa.value.toUpperCase();
+    casasPalavra.push(casa);
+  }
+
+  const liPista = document.getElementById(`p${item.numero}`);
+
+  if (digitado === item.resposta) {
+    palavrasValidadas.add(item.numero);
+    liPista.classList.remove("errada");
+    liPista.classList.add("certa");
+
+    casasPalavra.forEach(casa => {
+      casa.classList.remove("errada", "dica-revelada");
+      casa.classList.add("certa");
+      casa.readOnly = true;
+    });
+
+    aplicarFiltroPistas();
+    atualizarPlacar();
+
+    if (palavrasValidadas.size === palavras.length) {
+      finalizarComVitoria();
+    } else {
+      tocarSom("acerto");
+      exibirBanner(`Pergunta ${item.numero} correta! (${palavrasValidadas.size} de ${palavras.length} palavras validadas)`, "sucesso");
+      navegarPalavra(1);
+    }
+  } else {
+    liPista.classList.remove("certa");
+    liPista.classList.add("errada");
+
+    casasPalavra.forEach(casa => {
+      // Protege células já travadas por cruzamentos ou dicas anteriores
+      if (!casa.readOnly) {
+        casa.classList.remove("errada");
+        void casa.offsetWidth; // Reinicia animação shake
+        casa.classList.add("errada");
+      }
+    });
+
+    tocarSom("erro");
+    const cfg = CONFIG_MODOS[modoAtual];
+    if (cfg.regressivo && cfg.penalidadeUnica > 0) {
+      segundos = Math.max(0, segundos - cfg.penalidadeUnica);
+      atualizarDisplayTimer();
+      exibirBanner(`Pergunta ${item.numero} incorreta! Penalidade individual de -${cfg.penalidadeUnica}s.`, "alerta");
+      if (segundos === 0) encerrarPorTempo();
+    } else {
+      exibirBanner(`Pergunta ${item.numero} incorreta. Revise as letras em vermelho.`, "alerta");
+    }
+
+    selecionarPista(indicePalavra);
+  }
+}
+
+/* Verificação Geral de Todas as Perguntas (Requisito 4) */
 function conferir() {
-  let acertos = 0;
+  if (jogoEncerrado) return;
+
   const celulasCertas = new Set();
   const celulasErradas = new Set();
 
   qtdVerificacoes++;
-  document.getElementById("tentativas").textContent = `Verificações: ${qtdVerificacoes}`;
+  document.getElementById("tentativas").textContent = `Checagens: ${qtdVerificacoes}`;
 
   for (let p = 0; p < palavras.length; p++) {
     const item = palavras[p];
@@ -279,12 +628,12 @@ function conferir() {
       coords.push(`${l}_${c}`);
     }
 
-    const liPista = document.getElementById(`p${item.numero}${item.direcao}`);
+    const liPista = document.getElementById(`p${item.numero}`);
     liPista.classList.remove("certa", "errada");
 
     if (digitado === item.resposta) {
+      palavrasValidadas.add(item.numero);
       liPista.classList.add("certa");
-      acertos++;
       coords.forEach(chave => celulasCertas.add(chave));
     } else {
       liPista.classList.add("errada");
@@ -297,50 +646,61 @@ function conferir() {
     casa.classList.remove("certa", "errada");
     if (celulasCertas.has(chave)) {
       casa.classList.add("certa");
-    } else if (celulasErradas.has(chave)) {
+      casa.readOnly = true;
+    } else if (celulasErradas.has(chave) && !casa.readOnly) {
       casa.classList.add("errada");
     }
   });
 
-  atualizarPlacar(acertos);
+  if (palavraSelecionada) {
+    document.getElementById("btn-validar-atual").disabled = palavrasValidadas.has(palavraSelecionada.numero);
+  }
 
+  aplicarFiltroPistas();
+  atualizarPlacar();
+
+  const acertos = palavrasValidadas.size;
   if (acertos === palavras.length) {
     finalizarComVitoria();
-  } else if (modoDesafio && !jogoEncerrado) {
-    segundos = Math.max(0, segundos - 15);
-    atualizarDisplayTimer();
-    exibirBanner(`Penalidade do Modo Desafio: -15s aplicados (${palavras.length - acertos} palavra(s) pendente(s)).`, "alerta");
-    if (segundos === 0) {
-      encerrarPorTempo();
+  } else {
+    tocarSom("erro");
+    const cfg = CONFIG_MODOS[modoAtual];
+    if (cfg.regressivo && cfg.penalidadeGeral > 0) {
+      segundos = Math.max(0, segundos - cfg.penalidadeGeral);
+      atualizarDisplayTimer();
+      exibirBanner(`Conferência geral: ${acertos} de ${palavras.length} certas. Penalidade de -${cfg.penalidadeGeral}s aplicada!`, "alerta");
+      if (segundos === 0) encerrarPorTempo();
+    } else {
+      exibirBanner(`${acertos} de ${palavras.length} palavras corretas. Revise os itens em vermelho.`, "alerta");
     }
   }
 }
 
-function atualizarPlacar(acertos) {
+function atualizarPlacar() {
+  const acertos = palavrasValidadas.size;
   const total = palavras.length;
-  document.getElementById("resultado").textContent = `${acertos} de ${total} palavras`;
   const percentual = Math.round((acertos / total) * 100);
+  document.getElementById("resultado").textContent = `${acertos} de ${total} palavras`;
+  document.getElementById("percentual-progresso").textContent = `${percentual}%`;
   document.getElementById("barra-fill").style.width = `${percentual}%`;
 }
 
-/* Cronômetro e Modo Desafio */
-function alternarModoDesafio() {
-  modoDesafio = document.getElementById("modo-desafio").checked;
-  iniciar();
-}
-
+/* Cronômetro e Recorde */
 function reiniciarTimer() {
   clearInterval(intervaloTimer);
   const timerEl = document.getElementById("timer");
   timerEl.classList.remove("timer-alerta", "timer-critico");
 
-  segundos = modoDesafio ? TEMPO_DESAFIO_INICIAL : 0;
+  const cfg = CONFIG_MODOS[modoAtual];
+  segundos = cfg.tempo;
+  segundosDecorridos = 0;
   atualizarDisplayTimer();
 
   intervaloTimer = setInterval(() => {
     if (jogoEncerrado) return;
+    segundosDecorridos++;
 
-    if (modoDesafio) {
+    if (cfg.regressivo) {
       segundos--;
       atualizarDisplayTimer();
       if (segundos <= 60 && segundos > 20) {
@@ -349,9 +709,7 @@ function reiniciarTimer() {
         timerEl.classList.remove("timer-alerta");
         timerEl.classList.add("timer-critico");
       }
-      if (segundos <= 0) {
-        encerrarPorTempo();
-      }
+      if (segundos <= 0) encerrarPorTempo();
     } else {
       segundos++;
       atualizarDisplayTimer();
@@ -359,28 +717,80 @@ function reiniciarTimer() {
   }, 1000);
 }
 
+function formatarTempo(totalSeg) {
+  const mins = String(Math.floor(totalSeg / 60)).padStart(2, "0");
+  const segs = String(totalSeg % 60).padStart(2, "0");
+  return `${mins}:${segs}`;
+}
+
 function atualizarDisplayTimer() {
-  const mins = String(Math.floor(segundos / 60)).padStart(2, "0");
-  const segs = String(segundos % 60).padStart(2, "0");
-  document.getElementById("timer").textContent = `${mins}:${segs}`;
+  document.getElementById("timer").textContent = formatarTempo(segundos);
+}
+
+function salvarRecordeSeMelhor() {
+  const chave = `arqcomp_recorde_${modoAtual}`;
+  const anterior = localStorage.getItem(chave);
+  if (!anterior || segundosDecorridos < parseInt(anterior, 10)) {
+    localStorage.setItem(chave, String(segundosDecorridos));
+  }
+  atualizarRecordeHUD();
+}
+
+function atualizarRecordeHUD() {
+  const chave = `arqcomp_recorde_${modoAtual}`;
+  const salvo = localStorage.getItem(chave);
+  document.getElementById("melhor-tempo").textContent = salvo
+    ? `Recorde: ${formatarTempo(parseInt(salvo, 10))}`
+    : "Recorde: --:--";
 }
 
 function finalizarComVitoria() {
   jogoEncerrado = true;
   clearInterval(intervaloTimer);
-  const tempoFormatado = document.getElementById("timer").textContent;
-  const patente = qtdVerificacoes === 1
-    ? "Arquiteto de Silício (Perfeito em 1 verificação!)"
-    : `Engenheiro de Hardware (${qtdVerificacoes} verificações)`;
-  exibirBanner(`Sistema 100% validado! Todas as 16 palavras corretas • Relógio: ${tempoFormatado} • Nível: ${patente}.`, "sucesso");
+  tocarSom("vitoria");
+  salvarRecordeSeMelhor();
+
+  const tempoGasto = formatarTempo(segundosDecorridos);
+  document.getElementById("modal-badge").textContent = "MISSÃO CUMPRIDA // 100% VALIDADO";
+  document.getElementById("modal-titulo").textContent = "Arquitetura Dominada!";
+  document.getElementById("modal-descricao").textContent =
+    `Você validou todas as 16 palavras em ${qtdVerificacoes} checagem(ns) no ${CONFIG_MODOS[modoAtual].nome}.`;
+  document.getElementById("stat-acertos").textContent = "16 / 16";
+  document.getElementById("stat-tempo").textContent = tempoGasto;
+  document.getElementById("stat-dicas").textContent = String(dicasUsadas);
+  document.getElementById("modal-fim").classList.remove("oculto");
 }
 
 function encerrarPorTempo() {
   jogoEncerrado = true;
   clearInterval(intervaloTimer);
+  tocarSom("erro");
+
+  let acertosFinais = 0;
+  palavras.forEach(item => {
+    let digitado = "";
+    for (let i = 0; i < item.resposta.length; i++) {
+      const l = item.direcao === "H" ? item.linha : item.linha + i;
+      const c = item.direcao === "H" ? item.coluna + i : item.coluna;
+      digitado += document.getElementById(`c${l}_${c}`).value.toUpperCase();
+    }
+    if (digitado === item.resposta) acertosFinais++;
+  });
+
   document.querySelectorAll(".casa").forEach(c => (c.disabled = true));
-  conferir();
-  exibirBanner("Tempo esgotado no Modo Desafio! Tabuleiro bloqueado. Clique em Reiniciar para tentar novamente.", "perigo");
+  document.getElementById("modal-badge").textContent = "TIMEOUT // CLOCK ESGOTADO";
+  document.getElementById("modal-titulo").textContent = "Tempo Esgotado!";
+  document.getElementById("modal-descricao").textContent =
+    "O ciclo de clock chegou a zero antes da validação completa do silício.";
+  document.getElementById("stat-acertos").textContent = `${acertosFinais} / 16`;
+  document.getElementById("stat-tempo").textContent = "00:00";
+  document.getElementById("stat-dicas").textContent = String(dicasUsadas);
+  document.getElementById("modal-fim").classList.remove("oculto");
+}
+
+function fecharModalEReiniciar() {
+  document.getElementById("modal-fim").classList.add("oculto");
+  iniciar();
 }
 
 function exibirBanner(mensagem, tipo) {
@@ -395,4 +805,4 @@ function ocultarBanner() {
   banner.textContent = "";
 }
 
-iniciar();
+document.addEventListener("DOMContentLoaded", iniciar);
