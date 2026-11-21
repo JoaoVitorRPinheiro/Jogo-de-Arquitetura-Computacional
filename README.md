@@ -35,7 +35,7 @@ Jogo de cruzadinha interativo desenvolvido em HTML, CSS e JavaScript puros para 
 
 ## Site publicado
 
-https://SEU-USUARIO.github.io/arqcomp-cruzadinha/
+https://joaovitorrpinheiro.github.io/Jogo-de-Arquitetura-Computacional/
 
 ## Atalhos de teclado
 
