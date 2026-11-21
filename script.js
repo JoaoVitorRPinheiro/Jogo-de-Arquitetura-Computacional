@@ -826,4 +826,7 @@ function ocultarBanner() {
   banner.textContent = "";
 }
 
-document.addEventListener("DOMContentLoaded", iniciar);
+document.addEventListener("DOMContentLoaded", () => {
+  iniciar();
+  selecionarPista(0);
+});
