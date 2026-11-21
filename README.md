@@ -31,6 +31,18 @@ Jogo de cruzadinha interativo desenvolvido em HTML, CSS e JavaScript puros para 
 | 15 | Horizontal | Arquitetura com dois motores físicos independentes capazes de processar duas threads simultaneamente. | DUALCORE |
 | 16 | Vertical | Conteúdo gravado por máscara na fabricação, imutável em operação normal para boot. | ROM |
 
+
+
 ## Site publicado
 
 https://SEU-USUARIO.github.io/arqcomp-cruzadinha/
+
+## Atalhos de teclado
+
+| Tecla | Ação |
+|-------|------|
+| `Setas` | Move o cursor entre as casas |
+| `Espaço` | Alterna entre Horizontal e Vertical |
+| `Tab` | Pula para a próxima pergunta pendente |
+| `Enter` | Valida a pergunta selecionada |
+| `Backspace` / `Delete` | Apaga a letra da casa atual |
