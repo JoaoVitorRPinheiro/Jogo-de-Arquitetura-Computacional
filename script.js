@@ -272,6 +272,20 @@ function configurarEventosCelulas() {
         } else {
           casa.classList.remove("errada");
         }
+      } else if (e.key === "Backspace") {
+        if (casa.readOnly || casa.value === "") {
+          e.preventDefault();
+          recuarEApagarEditavel(l, c);
+        } else {
+          casa.classList.remove("errada");
+        }
+      } else if (e.key === "Delete") {
+        if (!casa.readOnly) {
+          e.preventDefault();
+          casa.value = "";
+          casa.classList.remove("errada", "dica-revelada");
+        }
+      } else if (e.key === "ArrowRight") {
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
         direcaoAtual = "H";
@@ -683,8 +697,15 @@ function atualizarPlacar() {
   document.getElementById("resultado").textContent = `${acertos} de ${total} palavras`;
   document.getElementById("percentual-progresso").textContent = `${percentual}%`;
   document.getElementById("barra-fill").style.width = `${percentual}%`;
-}
 
+  const totalH = palavras.filter(p => p.direcao === "H").length;
+  const certasH = palavras.filter(p => p.direcao === "H" && palavrasValidadas.has(p.numero)).length;
+  const totalV = palavras.filter(p => p.direcao === "V").length;
+  const certasV = palavras.filter(p => p.direcao === "V" && palavrasValidadas.has(p.numero)).length;
+
+  document.getElementById("cont-h").textContent = `${certasH}/${totalH}`;
+  document.getElementById("cont-v").textContent = `${certasV}/${totalV}`;
+}
 /* Cronômetro e Recorde */
 function reiniciarTimer() {
   clearInterval(intervaloTimer);
